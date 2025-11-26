@@ -1,0 +1,91 @@
+@font-face {
+	font-family: BadComic;
+	src: url(BadComic-Regular.ttf);
+}
+
+body {
+	margin: 0;
+	padding: 32px;
+	font-family: BadComic;
+}
+
+.page {
+
+	color: black;
+	max-width: 1000px;
+	align-items: flex-start;
+	height: auto;
+	margin: auto;
+	padding: 16px;
+	border-style: solid;
+	border-width: 10px 10px 10px 10px;
+	border-image: url(button.svg) 10 10 10 10 stretch stretch;
+	overflow: auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.row {
+	display: flex;
+	align-items: flex-start;
+	/* gap: 16px; */
+}
+
+div.content {
+	margin: auto;
+	/* margin-left: 0px; */
+	/* padding: 1px 16px; */
+
+	width: 75%;
+	display: inline-block;
+}
+
+.sidebar {
+	margin: 0;
+	padding: 0px 8px;
+	width: fit-content;
+	/* height: 50vh; */
+	align-self: stretch;
+	background-color: transparent;
+	position: relative;
+	overflow: auto;
+
+	border-style: solid;
+	border-width: 10px 10px 10px 10px;
+	border-image: url(button.svg) 10 10 10 10 stretch stretch;
+}
+
+.sidebar a {
+	display: block;
+	color: black;
+	padding: 4px;
+	text-decoration: none;
+	transition: padding 0.2s ease;
+}
+
+.sidebar h2 {
+	color: black;
+	text-align: center;
+}
+
+.sidebar a:hover {
+	background-color: black;
+	color: white;
+	padding: 4px 8px;
+	/* margin-top: 4px; */
+	/* margin-bottom: 4px; */
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.footer {
+	/* padding: 8px; */
+	background-color: white;
+	text-align: center;
+	align-self: stretch;
+}
