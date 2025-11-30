@@ -1,6 +1,6 @@
 @font-face {
 	font-family: BadComic;
-	src: url(BadComic-Regular.ttf);
+	src: url("assets/BadComic-Regular.ttf");
 }
 
 body {
@@ -9,18 +9,24 @@ body {
 	font-family: BadComic;
 }
 
+:root {
+	/* default sidebar height used to lock the page height; adjust as needed */
+	--sidebar-min-height: 720px;
+}
+
 .page {
 
 	color: black;
 	max-width: 1000px;
 	align-items: flex-start;
+	/* allow page to grow to fit the sidebar and other content */
 	height: auto;
 	margin: auto;
 	padding: 16px;
 	border-style: solid;
 	border-width: 10px 10px 10px 10px;
-	border-image: url(button.svg) 10 10 10 10 stretch stretch;
-	overflow: auto;
+	border-image: url("assets/button.svg") 10 10 10 10 stretch stretch;
+	overflow: visible; /* allow the page to grow to fit its children */
 
 	display: flex;
 	flex-direction: column;
@@ -29,7 +35,7 @@ body {
 
 .row {
 	display: flex;
-	align-items: flex-start;
+	align-items: flex-start; /* let the row height follow the tallest column (sidebar) */
 	/* gap: 16px; */
 }
 
@@ -38,10 +44,16 @@ div.content {
 	margin: 0;
 	margin-left: auto;
 	margin-right: auto;
+
+	padding: 0 16px;
 	/* margin-left: 0px; */
 	/* padding: 1px 16px; */
 	position: relative;
-	overflow: auto;
+	 /* limit content height to match the sidebar height so it scrolls internally
+		 instead of stretching the page. Adjust --sidebar-min-height as needed. */
+	 max-height: var(--sidebar-min-height);
+	 overflow: auto;
+	 min-height: 0;
 
 	width: 75%;
 	/* display: inline-block; */
@@ -50,16 +62,28 @@ div.content {
 .sidebar {
 	margin: 0;
 	padding: 0px 8px;
-	width: fit-content;
-	/* height: 50vh; */
-	align-self: stretch;
+	/* restore original width behavior: let sidebar size to its contents */
+	min-width: 164px;
+	width: 164px;
+	align-self: flex-start;
 	background-color: transparent;
 	position: relative;
-	overflow: auto;
+	/* ensure the sidebar defines the page height; do not scroll internally */
+	min-height: var(--sidebar-min-height);
+	overflow: visible;
 
 	border-style: solid;
 	border-width: 10px 10px 10px 10px;
-	border-image: url(button.svg) 10 10 10 10 stretch stretch;
+	border-image: url("assets/button.svg") 10 10 10 10 stretch stretch;
+}
+
+.sidebar img {
+	display: block;
+	margin: 8px auto; /* Adds a small vertical margin and centers the block image */
+	/* keep button images at their intrinsic size (do not scale with CSS) */
+	width: auto;
+	max-width: none;
+	height: auto;
 }
 
 .sidebar a {
@@ -93,4 +117,51 @@ img {
 	background-color: white;
 	text-align: center;
 	align-self: stretch;
+}
+
+/* Manga gallery styles */
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* three items wide */
+	gap: 12px;
+	align-items: start;
+	max-width: 960px; /* constrain overall grid width */
+	margin: 0 auto; /* center the grid */
+}
+
+.cover {
+	display: block;
+	overflow: hidden;
+	border-width: 8px;
+	border-style: solid;
+	border-image: url("assets/button.svg") 10 10 10 10 stretch stretch;
+	background: white;
+}
+
+.cover img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	filter: saturate(0.0);
+	transition: transform 180ms ease, filter 180ms ease;
+}
+
+.cover:hover img {
+	filter: saturate(1);
+}
+
+.loading, .error {
+	padding: 12px;
+	text-align: center;
+	color: #333;
+}
+
+/* Responsive fallbacks: 2 columns on medium, 1 on small screens */
+@media (max-width: 900px) {
+	.gallery { grid-template-columns: repeat(2, 1fr); max-width: 720px; }
+}
+
+@media (max-width: 520px) {
+	.gallery { grid-template-columns: repeat(1, 1fr); max-width: 360px; }
 }

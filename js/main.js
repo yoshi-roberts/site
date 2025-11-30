@@ -4,7 +4,8 @@ new Router(
 	{
 		"/": "/pages/home.html",
 		"/about": "/pages/about.html",
-		"/contact": "/pages/contact.html"
+		"/contact": "/pages/contact.html",
+		"/manga": "/pages/manga.html",
 	},
 	"/pages/404.html"     // <- separate HTML file for 404
 );
